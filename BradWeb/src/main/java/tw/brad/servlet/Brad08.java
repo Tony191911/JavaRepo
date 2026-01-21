@@ -51,7 +51,7 @@ public class Brad08 extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		BufferedInputStream bin = new BufferedInputStream(
-				new FileInputStream("C:\\Users\\User\\eclipse-workspace\\BradWeb\\src\\main\\webapp\\brad06.html"));
+				new FileInputStream("C:\\Users\\User\\git\\BradWeb\\src\\main\\webapp\\brad06.html"));
 				byte[] data = bin.readAllBytes();
 				String html = new String(data);
 				
