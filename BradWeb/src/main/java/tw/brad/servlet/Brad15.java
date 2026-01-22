@@ -27,7 +27,7 @@ public class Brad15 extends HttpServlet {
 		BufferedImage img = ImageIO.read(new File(source));
 		Graphics2D g2d = img.createGraphics();
 		
-		Font f1 = new Font(null, Font.BOLD, 72);
+		Font f1 = new Font(null, Font.BOLD, 15);
 		
 		AffineTransform transform = new AffineTransform();
 		transform.rotate(Math.toRadians(-30));
@@ -35,7 +35,7 @@ public class Brad15 extends HttpServlet {
 		
 		g2d.setFont(f2);
 		g2d.setColor(Color.BLUE);
-		g2d.drawString("版權沒有, 歡迎盜連", 600, 600);
+		g2d.drawString("版權沒有, 歡迎盜連", 70, 100);
 		
 		response.setContentType("image/jpeg");
 		ImageIO.write(img, "JPEG", response.getOutputStream());
