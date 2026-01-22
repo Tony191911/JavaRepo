@@ -15,8 +15,8 @@ import java.util.Collection;
 @MultipartConfig(
 	location = "C:\\Users\\User\\git\\repository\\BradWeb\\src\\main\\webapp\\upload"
 		)
-@WebServlet("/Brad13")
-public class Brad13 extends HttpServlet {
+@WebServlet("/Brad13uploadFiles")
+public class Brad13uploadFiles extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

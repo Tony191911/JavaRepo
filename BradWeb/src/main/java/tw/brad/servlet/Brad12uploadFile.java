@@ -14,8 +14,8 @@ import java.io.PrintWriter;
 @MultipartConfig(
 	location = "C:\\Users\\User\\git\\repository\\BradWeb\\src\\main\\webapp\\upload"
 		)
-@WebServlet("/Brad12")
-public class Brad12 extends HttpServlet {
+@WebServlet("/Brad12uploadFile")
+public class Brad12uploadFile extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

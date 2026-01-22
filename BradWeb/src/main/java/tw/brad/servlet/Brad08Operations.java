@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/Brad08")
-public class Brad08 extends HttpServlet {
-
+@WebServlet("/Brad08Operations")
+public class Brad08Operations extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -51,7 +51,7 @@ public class Brad08 extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		BufferedInputStream bin = new BufferedInputStream(
-				new FileInputStream("C:\\Users\\User\\git\\BradWeb\\src\\main\\webapp\\brad06.html"));
+				new FileInputStream("C:\\Users\\User\\git\\repository\\BradWeb\\src\\main\\webapp\\brad06Operations.html"));
 				byte[] data = bin.readAllBytes();
 				String html = new String(data);
 				
