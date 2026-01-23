@@ -28,7 +28,7 @@ public class GiftDAO {
 		List<Gift> gifts = new ArrayList<>();
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
 			PreparedStatement pstmt = conn.prepareStatement(SQL_FIND_ALL);
-			ResultSet rs = pstmt.executeQuery();) 
+			ResultSet rs = pstmt.executeQuery();)
 		{
 			while (rs.next()) {
 				Gift gift = new Gift();

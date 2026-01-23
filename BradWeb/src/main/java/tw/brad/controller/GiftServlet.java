@@ -18,11 +18,20 @@ public class GiftServlet extends HttpServlet {
 		// 2. Model
 		try {
 			List<Gift> gifts = new GiftDAO().findAll();
-			System.out.println(gifts.size());
-			System.out.println(gifts.get(0).getName());
+			if (gifts != null) {
+				System.out.println(gifts.size());
+			}else {
+				System.out.println("gift null");
+			}
+			request.setAttribute("gifts", gifts);
+			request.setAttribute("prev", 1);
+			request.setAttribute("page", 2);
+			request.setAttribute("next", 3);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// 3. Viewer
+		request.getRequestDispatcher("GiftViewer").forward(request, response);
 	}
 }
