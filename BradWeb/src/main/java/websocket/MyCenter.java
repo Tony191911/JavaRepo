@@ -36,7 +36,12 @@ public class MyCenter {
 			isExistTeacher = true;
 			teacherSession = session;
 		}else if (session == teacherSession) {
-			
+			for (Session userSession : sessions) {
+				try {
+					userSession.getBasicRemote().sendText(mesg);
+				} catch (IOException e) {
+				}
+			}
 		}
 	}
 	
