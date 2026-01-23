@@ -15,9 +15,17 @@ import java.util.List;
 public class GiftServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. User
+		request.setCharacterEncoding("UTF-8");
+		int page = 1;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		// 2. Model
 		try {
-			List<Gift> gifts = new GiftDAO().findAll();
+			List<Gift> gifts = new GiftDAO(page, 10).findAll();
 			if (gifts != null) {
 				System.out.println(gifts.size());
 			}else {
@@ -27,6 +35,9 @@ public class GiftServlet extends HttpServlet {
 			request.setAttribute("prev", 1);
 			request.setAttribute("page", 2);
 			request.setAttribute("next", 3);
+			request.setAttribute("prev", page-1);
+			request.setAttribute("page", page);
+			request.setAttribute("next", page+1);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

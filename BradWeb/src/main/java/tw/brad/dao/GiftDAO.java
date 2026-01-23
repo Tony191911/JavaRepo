@@ -17,19 +17,23 @@ public class GiftDAO {
 			SELECT id , name , feature , addr , tel, picurl
 			FROM gift
 			ORDER BY id
+			LIMIT ?, ?
 			""";
 
-	
-	public GiftDAO() {
-
+	private int page, rpp;
+	public GiftDAO(int page, int rpp) {
+		this.page = page;
+		this.rpp = rpp;
 	}
 	
-	public List<Gift> findAll() throws Exception {
+	public List<Gift> findAll() {
 		List<Gift> gifts = new ArrayList<>();
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
-			PreparedStatement pstmt = conn.prepareStatement(SQL_FIND_ALL);
-			ResultSet rs = pstmt.executeQuery();)
+			PreparedStatement pstmt = conn.prepareStatement(SQL_FIND_ALL);)
 		{
+			pstmt.setInt(1, (page-1)*rpp);
+			pstmt.setInt(2, rpp);
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Gift gift = new Gift();
 				gift.setId(rs.getLong("id"));
@@ -39,7 +43,11 @@ public class GiftDAO {
 				gift.setTel(rs.getString("tel"));
 				gift.setPicurl(rs.getString("picurl"));
 				gifts.add(gift);
+				
 			}
+			rs.close();
+		}catch (Exception e) {
+			System.out.println(e);
 		}
 		return gifts;
 	}
