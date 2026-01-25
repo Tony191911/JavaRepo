@@ -11,7 +11,7 @@ window.onload = function() {
 	chatDiv.style.display = "none";
 	
 	start.addEventListener("click", function(){
-		connect("ws://10.0.101.187:8080/BradWeb/myserver");
+		connect("ws://192.168.68.54:8080/BradWeb/myserver");
 	});
 	
 	send.addEventListener("click", function(){
