@@ -31,13 +31,16 @@ public class MyCenter {
 	
 	@OnMessage
 	public void onMessage(String mesg, Session session) {
-		// 判斷是否為 Teacher => mesg
+		// 第一個if判斷是否有 Teacher ，沒有的話把第一個連進來的設為 Teacher
+		// 第二個if判斷如果是 Teacher 在傳送訊息，就發送給所有人包含 Teacher 自己
 		if (!isExistTeacher && mesg.contains("isTeacher")) {
+			// 第一個連進來的是老師(只能有一位)
 			isExistTeacher = true;
 			teacherSession = session;
 		}else if (session == teacherSession) {
 			for (Session userSession : sessions) {
 				try {
+					// 取得傳送的管道並把訊息傳送給每個student
 					userSession.getBasicRemote().sendText(mesg);
 				} catch (IOException e) {
 				}
