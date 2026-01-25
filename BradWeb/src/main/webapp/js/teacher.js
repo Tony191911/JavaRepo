@@ -26,7 +26,10 @@ window.onload = function() {
 	// 滑鼠點下去開始畫線
 	myDrawer.onmousedown = function(e){
 		isDrag = true;
+		// 取得滑鼠在canvas上的x, y座標
 		let x = e.offsetX, y = e.offsetY;
+		// 清空舊的畫筆路徑，重新開始畫一條新的路徑
+		// 把畫筆放到(x,y)上，起點
 		ctx.beginPath();
 		ctx.lineWidth = 4;
 		ctx.moveTo(x, y);
@@ -48,6 +51,8 @@ window.onload = function() {
 	myDrawer.onmousemove = function(e){
 		if (isDrag) {
 			let x = e.offsetX, y = e.offsetY;
+			// 定義線段終點
+			// 把線顯示到canvas上
 			ctx.lineTo(x, y);
 			ctx.stroke();
 			
