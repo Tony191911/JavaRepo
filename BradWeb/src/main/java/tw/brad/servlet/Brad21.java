@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tw.brad.apis.Member;
 import tw.brad.dao.MemberDAO;
 
@@ -27,7 +28,15 @@ public class Brad21 extends HttpServlet {
 			try {
 				Member member = dao.login(email, passwd);
 				if (member != null) {
-					response.sendRedirect("brad22.html");
+					HttpSession session = request.getSession(true);
+					session.setAttribute("member", member);
+					//------------------------------------
+					int lottery = (int)(Math.random()*49+1);
+					session.setAttribute("lottery", lottery);
+					int[] ary = {1,2,3,4};
+					session.setAttribute("ary", ary);
+					//------------------------------------
+					response.sendRedirect("Brad22");
 				}else {
 					response.sendRedirect("brad21.html");
 				}
@@ -39,9 +48,6 @@ public class Brad21 extends HttpServlet {
 //			response.sendError(405);
 //			response.sendError(405,"xxxxx");
 		}
-		
-		
-		
 		
 		
 		response.flushBuffer();
