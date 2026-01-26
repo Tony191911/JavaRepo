@@ -1,3 +1,4 @@
+<%@page import="tw.brad.apis.Bike"%>
 <%@page import="java.util.TreeSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,6 +8,9 @@
 	
 	TreeSet<Integer> set = new TreeSet<>();
 	while (set.size() < 6) set.add((int)(Math.random()*49+1));
+	
+	Bike bike = new Bike();
+	bike.upSpeed().upSpeed().upSpeed().upSpeed();
 
 %>
 <!DOCTYPE html>
@@ -20,5 +24,11 @@
 		<div>Hello, <%= name %></div>
 		<div>Hello, <%= (int)(Math.random()*49+1) %></div>
 		<div>Lottery: <%= set %></div>
+		<%
+			for (Integer v: set) {
+				out.println(v + "<br />");
+			}
+		%>
+		<div>Bike = <%= bike %></div>
 	</body>
 </html>
