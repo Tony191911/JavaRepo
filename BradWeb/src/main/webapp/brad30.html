@@ -12,7 +12,7 @@
 			}
 			
 			function test2() {
-				let url = "brad31.jsp";
+				let url = "brad31.jsp?max=" + $('#max').val();
 				$.get(url, function(data, status) {
 					if (status == "success") {
 						$('#lottery').html(data);
@@ -22,7 +22,9 @@
 			
 			function test3() {
 				let url = "brad31.jsp";
-				$.post(url, {}, function(data, status){
+				$.post(url, {
+					"max" : $('#max').val()
+				}, function(data, status){
 					if (status == "success") {
 						$('#lottery').html(data);
 					}
@@ -33,7 +35,10 @@
 				let url = "brad31.jsp";
 				$.ajax({
 					url : url,
-					method : 'get',
+					method : 'post',
+					data : {
+						"max" : $('#max').val()
+					},
 					success : function(data) {
 						$('#lottery').html(data);
 					}
@@ -43,7 +48,8 @@
 		</script>
 	</head>
 	<body>
-		Lottery: <span id="lottery"></span>
+		Lottery: <span id="lottery"></span><br />
+		<input type="number" id="max" />
 		<hr />
 		<input type="button" onclick="test1()" value="Load" /><br/>
 		<input type="button" onclick="test2()" value="Get" /><br/>
