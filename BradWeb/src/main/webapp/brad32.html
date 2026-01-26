@@ -6,8 +6,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script type="text/javascript">
 			function test1() {
-				let url = "Brad32";
-				$.get(url, function(data, status) {
+				let url = "brad32.jsp";
+				$.post(url, {
+					params : "OK"
+				}, function(data, status) {
 					if (status == "success") {
 						console.log(data);
 						console.log(data.x);

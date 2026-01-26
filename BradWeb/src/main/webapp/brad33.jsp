@@ -1,0 +1,15 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
+<%@ page language="java" contentType="application/json; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String x = request.getParameter("x");
+	String y = request.getParameter("y");
+	int result = Integer.parseInt(x) + Integer.parseInt(y);
+	
+	JSONObject obj = new JSONObject();
+	obj.put("result", result);
+	
+	out.print(obj);
+
+%>
