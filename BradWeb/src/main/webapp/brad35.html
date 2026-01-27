@@ -6,14 +6,25 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script>
 		function op() {
-			let url = "brad33.jsp";
-			$.post(url, {
-				x: $('#x').val(),
-				y: $('#y').val(),
-				op: $('#op').val()
-			}, function(data, status) {
-				if (status == "success") {
+			// let url = "brad35.jsp";
+			let url = "Brad35";
+			$.ajax({
+				url: url,
+				type: "put",
+				contentType: "application/json; charset=UTF-8",
+				dataType: "json",
+				data: JSON.stringify({
+					op: $('#op').val(),
+					params:{
+						x: $('#x').val(),
+						y: $('#y').val(),
+					}
+				}),
+				success: function(data){
 					$('#result').html(data.result)
+				},
+				error: function(xhttp){
+					$('#result').html(xhttp.status + ":" + xhttp.responseText)
 				}
 			});
 		}
