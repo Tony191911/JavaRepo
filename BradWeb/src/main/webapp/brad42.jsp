@@ -8,7 +8,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<form action="brad43.jsp" method="post" onsubmit="return checkForm();">
+		<form action="brad44.jsp" method="post" onsubmit="return checkForm();">
 			Email: <input name="email" /><br />
 			Password: <input name="passwd" type="password" /><br />
 			Name: <input name="name" /><br />
