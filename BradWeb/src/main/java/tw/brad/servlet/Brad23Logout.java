@@ -10,12 +10,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/Brad23")
-public class Brad23 extends HttpServlet {
+public class Brad23Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
 		}
-		response.sendRedirect("brad21.html");
+		response.sendRedirect("brad21login.html");
 	}
 }

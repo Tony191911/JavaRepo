@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/Brad21")
-public class Brad21 extends HttpServlet {
+public class Brad21LoginDAO extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -42,13 +42,13 @@ public class Brad21 extends HttpServlet {
 					ary[2] = 33;
 					response.sendRedirect("Brad22");
 				}else {
-					response.sendRedirect("brad21.html");
+					response.sendRedirect("brad21login.html");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else {
-			response.sendRedirect("brad21.html");
+			response.sendRedirect("brad21login.html");
 //			response.sendError(405);
 //			response.sendError(405,"xxxxx");
 		}

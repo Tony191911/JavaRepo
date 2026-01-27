@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 @WebServlet("/Brad32")
-public class Brad32 extends HttpServlet {
+public class Brad32Obj_Ary extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getReader();
 		

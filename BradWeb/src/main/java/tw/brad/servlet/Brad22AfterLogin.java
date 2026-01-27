@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/Brad22")
-public class Brad22 extends HttpServlet {
+public class Brad22AfterLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -21,12 +21,12 @@ public class Brad22 extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			response.sendRedirect("brad21.html");
+			response.sendRedirect("brad21login.html");
 		}
 		
 		Member member = (Member)session.getAttribute("member");
 		if (member == null) {
-			response.sendRedirect("brad21.html");
+			response.sendRedirect("brad21login.html");
 		}
 		Integer lottery = (Integer)session.getAttribute("lottery");
 		int[] ary = (int[])session.getAttribute("ary");
@@ -39,7 +39,7 @@ public class Brad22 extends HttpServlet {
 			out.print(String.format("<div>%d</div>", v));
 		}
 		
-		out.print("<hr /><a href='brad21.html'>Logout</a>");
+		out.print("<hr /><a href='brad21login.html'>Logout</a>");
 		
 		response.flushBuffer();
 	}

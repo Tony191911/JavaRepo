@@ -34,7 +34,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<form action="brad27.jsp">
+		<form action="brad27op.jsp">
 			<input name="x" value="<%= x %>" />
 			<select name="op">
 				<option value="1" <%= op.equals("1")?"selected":"" %> >+</option>
