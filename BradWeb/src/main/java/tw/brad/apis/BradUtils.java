@@ -32,19 +32,20 @@ public class BradUtils {
 	}
 	
 	public static SortedMap[] parseFood(String json) {
-		JSONArray root = new JSONArray();
+		JSONArray root = new JSONArray(json);
 		TreeMap<String, String>[] foods = new TreeMap[root.length()];
+		System.out.println(root.length());
 		try {
 			for (int i = 0; i < root.length(); i++) {
 				JSONObject food = root.getJSONObject(i);
 				TreeMap<String, String>map = new TreeMap<>();
 				map.put("name", food.getString("Name"));
-				map.put("tel", food.getString("Tel"));
-				map.put("city", food.getString("City"));
-				map.put("town", food.getString("Town"));
-				map.put("addr", food.getString("Address"));
-				map.put("feature", food.getString("FoodFeature"));
-				map.put("picurl", food.getString("PicURL"));
+				map.put("tel", food.getString("Tel").length()==0?"xx":food.getString("Tel"));
+				map.put("city", food.getString("City").length()==0?"xx":food.getString("City"));
+				map.put("town", food.getString("Town").length()==0?"xx":food.getString("Town"));
+				map.put("addr", food.getString("Address").length()==0?"xx":food.getString("Address"));
+				map.put("feature", food.getString("FoodFeature").length()==0?"xx":food.getString("FoodFeature"));
+				map.put("picurl", food.getString("PicURL").length()==0?"xx":food.getString("PicURL"));
 				foods[i] = map;
 			}
 		}catch (Exception e) {
