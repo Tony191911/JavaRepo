@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
 <%
 	// String[] names = {"Brad", "John", "Kevin", "Peter", "Amy"};
 	// pageContext.setAttribute("names", names);
@@ -12,7 +13,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<c:set var="names" value="${['Brad', 'John', 'Kevin', 'Peter', 'Amy'] }"></c:set>
+		<c:set var="names" value="${fn:split('Brad,John,Kevin,Peter,Amy', ',')}"></c:set>
 		names[3] = ${names[3]}<hr />
 		<table border="1" width="100%">
 			<tr>

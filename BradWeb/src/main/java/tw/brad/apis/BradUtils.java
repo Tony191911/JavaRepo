@@ -85,4 +85,8 @@ public class BradUtils {
 		}
 		return root.toString();
 	}
+	
+	public static int calcPages(int total, int rpp) {
+		return (int)(Math.ceil(total * 1.0 / 10));
+	}
 }
