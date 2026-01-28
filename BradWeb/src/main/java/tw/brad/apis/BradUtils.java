@@ -1,6 +1,11 @@
 package tw.brad.apis;
 
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class BradUtils {
 	public static String calc(String x, String y, String op) {
@@ -24,5 +29,27 @@ public class BradUtils {
 	
 	public static int createScore() {
 		return new Random().nextInt(101);
+	}
+	
+	public static SortedMap[] parseFood(String json) {
+		JSONArray root = new JSONArray();
+		TreeMap<String, String>[] foods = new TreeMap[root.length()];
+		try {
+			for (int i = 0; i < root.length(); i++) {
+				JSONObject food = root.getJSONObject(i);
+				TreeMap<String, String>map = new TreeMap<>();
+				map.put("name", food.getString("Name"));
+				map.put("tel", food.getString("Tel"));
+				map.put("city", food.getString("City"));
+				map.put("town", food.getString("Town"));
+				map.put("addr", food.getString("Address"));
+				map.put("feature", food.getString("FoodFeature"));
+				map.put("picurl", food.getString("PicURL"));
+				foods[i] = map;
+			}
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return foods;
 	}
 }
