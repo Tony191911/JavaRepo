@@ -15,6 +15,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<style type="text/css">
+			table {border-collapse: collapse; width: 100%;}
+			th, td {border: 1px solid #ccc; padding: 8px;}
+		</style>
 	</head>
 	<body>
 		<h1>Brad Big Company</h1>
@@ -22,7 +26,7 @@
 		<a href="?page=${prev }">Prev</a> | Page: <span>${page }</span>
 		| <a href="?page=${next }">Next</a>
 		<hr />
-		<table border="1" width="100%">
+		<table>
 			<tr>
 				<th>Id</th>
 				<th>Name</th>
