@@ -7,7 +7,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<form action="brad46.jsp">
+		<form action="brad46op.jsp">
 			<input name="x" value="${param.x }" />
 			<select name="op">
 				<option value="1" ${param.op=="1"?"selected":"" }>+</option>

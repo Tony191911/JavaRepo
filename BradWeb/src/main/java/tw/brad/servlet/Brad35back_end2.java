@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import org.json.JSONObject;
 
 @WebServlet("/Brad35")
-public class Brad35 extends HttpServlet {
+public class Brad35back_end2 extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

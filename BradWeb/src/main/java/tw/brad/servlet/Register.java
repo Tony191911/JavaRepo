@@ -33,12 +33,12 @@ public class Register extends HttpServlet {
 			dbMember = dao.findByEmail(email);
 			if (dbMember == null) {
 				if (dao.addMember(member)) {
-					response.sendRedirect("brad37.jsp");
+					response.sendRedirect("brad37register.jsp");
 				}else {
-					response.sendRedirect("brad36.jsp?errType=2");
+					response.sendRedirect("brad36register.jsp?errType=2");
 				}
 			}else {
-				response.sendRedirect("brad36.jsp?errType=1");
+				response.sendRedirect("brad36register.jsp?errType=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

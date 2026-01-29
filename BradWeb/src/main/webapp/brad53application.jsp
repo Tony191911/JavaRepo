@@ -13,6 +13,6 @@
 	</head>
 	<body>
 		a = ${a }<br />
-		<a href="brad54.jsp">Goto brad54</a>
+		<a href="brad54application.jsp">Goto brad54</a>
 	</body>
 </html>
