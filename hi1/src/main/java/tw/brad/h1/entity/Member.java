@@ -26,6 +26,10 @@ public class Member {
 	
 	@Column(name = "icon")
 	private byte[] icon;
+	
+	public Member(long id, String email, String name) {
+		this.id = id; this.email = email; this.name = name;
+	}
 
 	public long getId() {
 		return id;

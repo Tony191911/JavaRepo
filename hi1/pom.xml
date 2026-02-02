@@ -4,6 +4,12 @@
   <artifactId>hi1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source> 
+    <maven.compiler.target>21</maven.compiler.target> 
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
   <dependencies>
   	<!-- Source: https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 	<dependency>
