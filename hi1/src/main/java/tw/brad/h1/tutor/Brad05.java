@@ -4,13 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import tw.brad.h1.entity.Member;
+import tw.brad.h1.entity.Person;
 
 public class Brad05 {
 
 	public static void main(String[] args) throws Exception{
 		Class<String> stringCls= String.class;
-		Class<Member> memberCls= Member.class;
+		Class<Person> memberCls= Person.class;
 		
 		System.out.println(stringCls.getName());
 		System.out.println(memberCls.getName());
