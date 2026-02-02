@@ -17,5 +17,6 @@
 		<hr />
 		Welcome, ${member.name } (${member.email })<br />
 		<img src="data:image/png; base64, ${member.iconBase64 }" />
+		<img src="Servlet" />
 	</body>
 </html>
