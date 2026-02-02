@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/Brad04")
+@WebServlet("/public/Brad04")
 public class Brad04 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
