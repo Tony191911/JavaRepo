@@ -100,16 +100,16 @@ public class OrderServiceImp implements OrderService{
 			Order order = dao.findByIdWithItems(session, orderId)
 					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
 			
-			boolean isFind = false;
-			List<OrderItem> items = order.getItems();
-			for (OrderItem item : items) {
-				if (item.getId().equals(itemId)) {
-					item.setQty(newQty);
-					isFind = true;
-					break;
-				}
-			}
-			if (!isFind) throw new IllegalArgumentException("品項找不到");
+//			boolean isFind = false;
+//			List<OrderItem> items = order.getItems();
+//			for (OrderItem item : items) {
+//				if (item.getId().equals(itemId)) {
+//					item.setQty(newQty);
+//					isFind = true;
+//					break;
+//				}
+//			}
+//			if (!isFind) throw new IllegalArgumentException("品項找不到");
 				
 			
 			OrderItem item = order.getItems().stream()

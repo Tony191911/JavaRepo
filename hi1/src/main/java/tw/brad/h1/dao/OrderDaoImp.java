@@ -51,5 +51,54 @@ public class OrderDaoImp implements OrderDao{
 			.setMaxResults(size)
 			.list();
 	}
-
+	
+	//------------------ HQL --------------------
+	public void test1(Session session) {
+		String hql = """
+				SELECT 
+				FROM Order o
+				ORDER BY O.odate DESC
+				""";
+		List<Order> orders = session.createQuery(hql, Order.class).list();
+	}
+	public void test2(Session session) {
+		String hql = """
+				SELECT o
+				FROM Order o
+				WHERE o.customer = :cname
+				""";
+		List<Order> orders = session.createQuery(hql, Order.class)
+				.setParameter("cname", "Brad").list();
+	}
+	public void test3(Session session) {
+		String hql = """
+				SELECT o
+				FROM Order o
+				WHERE o.id = :id
+				""";
+		Order order = session.createQuery(hql, Order.class)
+				.setParameter("id", 1L).uniqueResult();
+	}
+	public void test4(Session session) {
+		String hql = """
+				SELECT DISTINCT o
+				FROM Order o
+				JOIN o.items i
+				WHERE i.pname LIKE :key
+				ORDER BY o.id
+				""";
+		List<Order> orders = session.createQuery(hql, Order.class)
+				.setParameter("id", 1L).list();
+	}
+	public void test5(Session session) {
+		String hql = """
+				SELECT o
+				FROM Order o
+				LEFT JOIN FETCH o.items
+				WHERE o.id = :id
+				""";
+		Order order = session.createQuery(hql, Order.class)
+				.setParameter("id", 1L).uniqueResult();
+	}
+	
 }
