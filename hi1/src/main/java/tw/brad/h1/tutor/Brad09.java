@@ -8,7 +8,7 @@ public class Brad09 {
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();
 		
-		Member member = dao.findById(3);
+		Member member = dao.findById(6);
 		if (member != null) {
 			System.out.printf("%d. %s : %s\n", 
 					member.getId(), member.getEmail(), 
