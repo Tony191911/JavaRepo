@@ -1,10 +1,14 @@
 package tw.brad.hi2.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -44,6 +48,17 @@ public class Order {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	//----------------------
+	@OneToMany(mappedBy = "order")
+	public List<OrderDetail> orderDetails = new ArrayList<>();
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 	
 	

@@ -1,0 +1,20 @@
+package tw.brad.hi2;
+
+public class Brad08 {
+	private static String hql = """
+			SELECT
+				o.customer.cname,
+				o.employee.lastName,
+				p.productName,
+				d.unitPrice,
+				d.quantity
+			FROM Order o
+			JOIN o.orderDetails d
+			JOIN d.product p
+			WHERE o.orderId = :orderId
+			""";
+	public static void main(String[] args) {
+		
+	}
+
+}
