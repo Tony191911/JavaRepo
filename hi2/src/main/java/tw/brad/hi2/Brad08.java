@@ -31,6 +31,7 @@ public class Brad08 {
 			List<Object[]> result = session.createQuery(hql, Object[].class)
 					.setParameter("orderId", 10250)
 					.getResultList();
+			//------------------------------------------
 			for (Object[] row : result) {
 				System.out.println(row[0]);
 				System.out.println(row[1]);

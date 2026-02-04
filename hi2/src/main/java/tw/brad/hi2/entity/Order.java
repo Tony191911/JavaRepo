@@ -51,7 +51,7 @@ public class Order {
 	}
 	//----------------------
 	@OneToMany(mappedBy = "order")
-	public List<OrderDetail> orderDetails = new ArrayList<>();
+	private List<OrderDetail> orderDetails = new ArrayList<>();
 
 	public List<OrderDetail> getOrderDetails() {
 		return orderDetails;
