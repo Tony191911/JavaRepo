@@ -1,5 +1,7 @@
 package com.example.spring1.apis;
 
+import com.example.spring1.dto.User;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +11,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class Brad05 {
 	
 	@RequestMapping("/calc")   // /brad05/calc?x=10&y=3
-	public void calc(@RequestParam String x, @RequestParam String y) {
+	public String calc(
+			@RequestParam(required = false, defaultValue = "0") String x,
+			@RequestParam(required = false, defaultValue = "0") String y) {
+		/* if @RequestParam int/Integer
+		 * 	int x = Integer.paraseInt((String)request.getParamter("x"));
+		 * ELSE
+		 * 	400
+		 */
 		System.out.printf("x = %s ; y = %s\n", x, y);
+		try {
+			int intX = Integer.parseInt(x);
+			int intY = Integer.parseInt(y);
+			int r = intX + intY;
+			return r + "";
+		} catch (Exception e) {
+			return "Error";
+		}
+	}
+
+	@RequestMapping("/test1")
+	public void test1(@RequestBody User user) {
+		System.out.println(user.getName());
+		System.out.println(user.getGender());
+		System.out.println(user.getAge());
+		System.out.println(user.getBike().getSpeed());
+		System.out.println(user.getAlias()[2]);
+		System.out.println(user.getTest().get("key2"));
 	}
 }
