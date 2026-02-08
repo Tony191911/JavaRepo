@@ -3,7 +3,7 @@ package tw.brad.h1.tutor;
 import tw.brad.h1.dao.SCDao;
 import tw.brad.h1.entity.Student;
 
-public class Brad14 {
+public class Brad14ManyToMany {
 
 	public static void main(String[] args) {
 		SCDao dao = new SCDao();

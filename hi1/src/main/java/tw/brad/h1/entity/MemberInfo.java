@@ -13,7 +13,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "memberinfo")
 public class MemberInfo {
+	//	主鍵欄位
 	@Id
+//	這個主鍵由資料庫自動產生，不是我手動給。
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
@@ -42,8 +44,13 @@ public class MemberInfo {
 	public void setMale(boolean isMale) {
 		this.isMale = isMale;
 	}
-	//--------------------------------
+
+//	--------------------------------
 	@OneToOne
+//	@MapsId 共享主鍵，兩張表的 id值會一模一樣
+//	存檔流程：
+//	1️.先 INSERT member → 取得 id = 5
+//	2.再 INSERT memberinfo → id 直接用 5（不是自己生成）
 	@MapsId
 	@JoinColumn(name = "id")
 	private Member member;

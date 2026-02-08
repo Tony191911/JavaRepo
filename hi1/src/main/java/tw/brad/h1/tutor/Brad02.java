@@ -19,11 +19,12 @@ public class Brad02 {
 					VALUES
 						(:email, :passwd, :name)
 					""";
+
 			NativeQuery<Member> query = 
 				session.createNativeQuery(sql, Member.class);
-			query.setParameter("email", "test1@brad.tw");
-			query.setParameter("passwd", "123456");
-			query.setParameter("name", "Test1");
+			query.setParameter("email", "test3@brad.tw");
+			query.setParameter("passwd", "12345678");
+			query.setParameter("name", "Test3");
 			
 			int n = query.executeUpdate();
 			

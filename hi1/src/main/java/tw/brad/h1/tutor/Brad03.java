@@ -17,13 +17,22 @@ public class Brad03 {
 			String sql = """
 					SELECT * FROM member
 					""";
+//			沒有指定要回傳 member類別，每一筆資料 = 一個 Object 陣列
 			NativeQuery query = session.createNativeQuery(sql);
 			List list = query.getResultList();
 			for (Object obj : list) {
 				Object[] data =  (Object[])obj;
 				System.out.printf("%d:%s:%s:%s\n", data[0], data[1], data[2], data[3]);
 			}
-			
+
+//			NativeQuery<Member> query = session.createNativeQuery(sql, Member.class);
+//		    List<Member> list = query.getResultList();
+//		    for (Member m : list) {
+//		        System.out.printf("%d:%s:%s:%s\n", m.getId(),
+//									               m.getEmail(),
+//									               m.getPasswd(),
+//									               m.getName());
+// 			}
 			
 			transaction.commit();
 		}catch (Exception e) {

@@ -3,7 +3,7 @@ package tw.brad.h1.tutor;
 import tw.brad.h1.service.OrderService;
 import tw.brad.h1.service.OrderServiceImp;
 
-public class Brad13 {
+public class Brad13OneToMany {
 
 	public static void main(String[] args) {
 		OrderService service = new OrderServiceImp();

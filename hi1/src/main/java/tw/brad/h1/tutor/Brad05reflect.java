@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 import tw.brad.h1.entity.Person;
 
-public class Brad05 {
+public class Brad05reflect {
 
 	public static void main(String[] args) throws Exception{
 		Class<String> stringCls= String.class;
@@ -30,7 +30,7 @@ public class Brad05 {
 			System.out.println(m);
 		}
 		System.out.println("----------");
-		Class<?> mClass = Class.forName("tw.brad.h1.entity.Member");
+		Class<?> mClass = Class.forName("tw.brad.h1.entity.Person");
 		Constructor<?> c = 
 			mClass.getDeclaredConstructor(long.class, String.class, String.class);
 		Object obj = c.newInstance(12L, "brad@brad.tw", "Brad");

@@ -6,7 +6,7 @@ import tw.brad.h1.dao.MemberDao;
 import tw.brad.h1.entity.Member;
 import tw.brad.h1.entity.MemberInfo;
 
-public class Brad10 {
+public class Brad10OneToOne {
 
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();

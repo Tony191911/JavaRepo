@@ -8,7 +8,7 @@ import tw.brad.h1.dao.SCDao;
 import tw.brad.h1.entity.Course;
 import tw.brad.h1.entity.Student;
 
-public class Brad16 {
+public class Brad16ManyToMany {
 
 	public static void main(String[] args) {
 		SCDao dao = new SCDao();

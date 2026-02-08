@@ -6,7 +6,7 @@ import tw.brad.h1.entity.OrderItem;
 import tw.brad.h1.service.OrderService;
 import tw.brad.h1.service.OrderServiceImp;
 
-public class Brad11 {
+public class Brad11OneToMany {
 
 	public static void main(String[] args) {
 		OrderService service = new OrderServiceImp();

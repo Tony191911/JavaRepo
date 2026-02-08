@@ -30,7 +30,10 @@ public class OrderDaoImp implements OrderDao{
 				""";
 		Order o = session.createQuery(hql, Order.class)
 				.setParameter("id", id)
+//				結果為 0筆(回傳 null) 或 1筆(回傳該 id的訂單)
 				.uniqueResult();
+//		查得到 → Optional<Order> 裡有資料
+//		查不到 → 回傳 Optional.empty()
 		return Optional.ofNullable(o);
 	}
 
@@ -52,7 +55,7 @@ public class OrderDaoImp implements OrderDao{
 			.list();
 	}
 	
-	//------------------ HQL --------------------
+	//------------------------------ HQL -----------------------------------
 	public void test1(Session session) {
 		String hql = """
 				SELECT 
