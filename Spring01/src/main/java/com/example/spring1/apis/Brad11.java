@@ -4,10 +4,7 @@ import com.example.spring1.dto.Hotel;
 import com.example.spring1.dto.HotelRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +56,21 @@ public class Brad11 {
             hotel.setError(-1);
         }
         return hotel;
+
+    }
+
+    @GetMapping("/search")
+    public List<Hotel> findByKey(@RequestParam String key) {
+        String sql = """
+                SELECT id, name, addr, tel 
+                FROM hotel 
+                WHERE name LIKE :skey OR
+                      addr LIKE :skey OR
+                      tel LIKE :skey
+                """;
+        Map<String, String> params = new HashMap<>();
+        params.put("skey", "%"+key+"%");
+        return jdbc.query(sql, params, hotelRowMapper);
 
     }
 }
