@@ -12,7 +12,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "member")
 public class Member {
+//	主鍵欄位
 	@Id
+//	這個主鍵由資料庫自動產生，不是我手動給。
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
@@ -69,10 +71,11 @@ public class Member {
 	public void setIcon(byte[] icon) {
 		this.icon = icon;
 	}
-	//----------------------
+
+//	--------------------------------------------------------
+//	cascade = CascadeType.ALL 代表對 Member 做的動作，同步套用到 MemberInfo
 	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
 	private MemberInfo memberInfo;
-
 
 	public MemberInfo getMemberInfo() {
 		return memberInfo;

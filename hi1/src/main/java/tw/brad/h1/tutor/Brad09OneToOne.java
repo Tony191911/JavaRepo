@@ -3,7 +3,7 @@ package tw.brad.h1.tutor;
 import tw.brad.h1.dao.MemberDao;
 import tw.brad.h1.entity.Member;
 
-public class Brad09 {
+public class Brad09OneToOne {
 
 	public static void main(String[] args) {
 		MemberDao dao = new MemberDao();

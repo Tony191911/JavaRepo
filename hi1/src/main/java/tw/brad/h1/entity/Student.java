@@ -35,7 +35,9 @@ public class Student {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-	//-------------------------
+
+
+	//----------------------------------------------------
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "sc",
