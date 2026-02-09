@@ -12,6 +12,16 @@ public class Hotel {
     @JsonProperty("Tel")
     private String tel;
 
+    private int error;
+
+    public int getError() {
+        return error;
+    }
+
+    public void setError(int error) {
+        this.error = error;
+    }
+
     public Long getId() {
         return id;
     }
