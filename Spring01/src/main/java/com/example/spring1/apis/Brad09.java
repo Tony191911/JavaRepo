@@ -12,6 +12,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/brad09")
@@ -38,7 +40,6 @@ public class Brad09 {
 //        System.out.println(member.getEmail());
 //        System.out.println(member.getPasswd());
 //        System.out.println(member.getName());
-        System.out.println(isGetId);
 
 //      isGetId == null：檢查 isGetId 這個變數是否為空
 //      ?false：如果是 null，就把 isGetId 設定為 false
@@ -84,4 +85,93 @@ public class Brad09 {
         return response;
     }
 
+    @PostMapping("/members/list")
+    public void addMembers(@RequestBody List<Member> members) {
+        String sql = """
+                INSERT INTO member
+                    (email, passwd, name)
+                VALUES
+                    (:email, :passwd, :name)
+                """;
+
+        MapSqlParameterSource[] params = new MapSqlParameterSource[members.size()];
+        for (int i = 0; i < members.size(); i++) {
+            params[i] = new MapSqlParameterSource();
+            params[i].addValue("email", members.get(i).getEmail());
+            params[i].addValue("passwd",BCrypt.hashpw(
+                    members.get(i).getPasswd(), BCrypt.gensalt()));
+            params[i].addValue("name", members.get(i).getName());
+        }
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        int[] r = jdbc.batchUpdate(sql, params, keyHolder);
+//      for (int v : r) { System.out.println(v); }
+
+        List<Map<String, Object>> maps = keyHolder.getKeyList();
+        for (Map<String, Object> map : maps) {
+            System.out.println(map.get("GENERATED_KEY"));
+        }
+    }
+
+    @PostMapping("/members/listv2")
+    public void addMembersV2(@RequestBody List<Member> members) {
+        for (Member member : members) {
+            addMember(member, true);
+        }
+    }
+
+    @DeleteMapping("/members/{id}")
+    public MemberResponse delete(@PathVariable Integer id) {
+        MemberResponse response = new MemberResponse();
+        String sql = """
+                Delete FROM member
+                WHERE id = :id
+                """;
+
+        Map<String, Integer> params = new HashMap<>();
+        params.put("id", id);
+
+        int n = jdbc.update(sql, params);
+        if (n > 0) {
+            response.setError(0);
+            response.setMessage("Delete Success");
+        }else {
+            response.setError(-1);
+            response.setMessage("Delete Failure");
+        }
+
+        return response;
+    }
+
+    @PutMapping("/members")
+    public MemberResponse update(@RequestBody Member member) {
+        MemberResponse response = new MemberResponse();
+//      System.out.println(member.getPasswd());
+        String sql;
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", member.getId());
+        if (member.getPasswd() != null) {
+            sql = """
+                    UPDATE member
+                    SET 
+                        name = :name,
+                        passwd = :passwd
+                    WHERE id = :id
+                    """;
+            params.put("name", member.getName());
+            params.put("passwd", BCrypt.hashpw(member.getPasswd(), BCrypt.gensalt()));
+        }else {
+            sql = """
+                    UPDATE member
+                    SET 
+                        name = :name
+                    WHERE id = :id
+                    """;
+            params.put("name", member.getName());
+        }
+
+        jdbc.update(sql, params);
+        return response;
+    }
 }
