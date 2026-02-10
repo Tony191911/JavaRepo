@@ -1,9 +1,15 @@
 package com.example.spring1.dto;
 
-import lombok.Data;
 
-@Data
 public class Bike {
     private double speed;
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
 
 }
