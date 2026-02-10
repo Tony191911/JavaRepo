@@ -1,5 +1,6 @@
 package tw.brad.spring2.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,36 @@ public class MemberController {
 		boolean isSuccess = service.loginV2(email, passwd);
 
 		Map<String, Boolean> map = Map.of("success", isSuccess);
+		return ResponseEntity.ok(map);
+	}
+
+	@PostMapping("/loginV3")
+	public ResponseEntity<Map<String, Boolean>> login(@RequestBody Map<String,String> body,
+													  HttpSession session) {
+		String email = body.get("email");
+		String passwd = body.get("passwd");
+
+		Member member = service.loginV3(email, passwd);
+		Map<String, Boolean> map;
+		if (member != null) {
+			session.setAttribute("member", member);
+			map = Map.of("success", true);
+		}else {
+			session.invalidate();
+			map = Map.of("success", false);
+		}
+
+		return ResponseEntity.ok(map);
+	}
+
+	@PostMapping("/status")
+	public ResponseEntity<Map<String,Object>> status(HttpSession session) {
+		Object member = session.getAttribute("member");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("success", member != null);
+		map.put("member", member);
+
 		return ResponseEntity.ok(map);
 	}
 }

@@ -7,6 +7,7 @@ import tw.brad.spring2.entity.Member;
 import tw.brad.spring2.repository.MemberRepository;
 import tw.brad.spring2.utils.BCrypt;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -51,5 +52,12 @@ public class MemberService {
         return false;
     }
 
+    public Member loginV3(String email, String passwd) {
+        Member member = repository.findByEmail(email).orElse(null);
+        if (member != null && BCrypt.checkpw(passwd, member.getPasswd())) {
+            return member;
+        }
+        return null;
+    }
 
 }
