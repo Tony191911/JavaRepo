@@ -17,6 +17,10 @@
 		</form>
 		<script>
 			let email = document.getElementById("email");
+			let passwd = document.getElementById("passwd");
+			let name = document.getElementById("name");
+			let mesg = document.getElementById("mesg");
+			let regForm = document.getElementById("regForm");
 			email.addEventListener('blur', async () => {
 				console.log("OK");
 				let url = "/api/members/exist?email=" + email.value;
@@ -24,8 +28,29 @@
 				let isExist = await res.json();
 				console.log(res);
 				console.log(isExist);
+				mesg.textContent = isExist?"Email 已存在":"";
 			});
-		
+
+			regForm.addEventListener("submit", async (e)=>{
+				e.preventDefault();
+				let data = {
+					email: email.value,
+					passwd: passwd.value,
+					name: name.value
+				};
+				let url = "/api/members/register";
+				let res = await fetch(url, {
+					method: 'POST',
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(data)
+				});
+				let json = await res.json();
+				console.log(json);
+
+			});
+
 		</script>
 		
 		
