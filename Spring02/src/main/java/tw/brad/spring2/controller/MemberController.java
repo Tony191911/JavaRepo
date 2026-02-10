@@ -36,7 +36,23 @@ public class MemberController {
 
 		boolean isSuccess = service.register(member);
 
-		Map<String, Boolean> map = Map.of("success", true);
+		Map<String, Boolean> map = Map.of("success", isSuccess);
+		return ResponseEntity.ok(map);
+	}
+
+	/*
+		request: {email:xxx, passwd:xxx}
+		response: {"success": true/false}
+	*/
+	@PostMapping("/login")
+	public ResponseEntity<Map<String, Boolean>> login(@RequestBody Map<String,String> body) {
+		String email = body.get("email");
+		String passwd = body.get("passwd");
+
+//		boolean isSuccess = service.login(email, passwd);
+		boolean isSuccess = service.loginV2(email, passwd);
+
+		Map<String, Boolean> map = Map.of("success", isSuccess);
 		return ResponseEntity.ok(map);
 	}
 }

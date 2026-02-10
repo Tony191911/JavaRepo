@@ -1,10 +1,13 @@
 package tw.brad.spring2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import tw.brad.spring2.entity.Member;
 import tw.brad.spring2.repository.MemberRepository;
 import tw.brad.spring2.utils.BCrypt;
+
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -25,5 +28,28 @@ public class MemberService {
         System.out.println(m.getId());
         return m != null;
     }
+
+    public boolean login(String email, String passwd) {
+        Member member = repository.findByEmail(email).orElse(null);
+        if (member != null && BCrypt.checkpw(passwd, member.getPasswd())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean loginV2(String email, String passwd) {
+        Member member = new Member();
+        member.setEmail(email);
+        Example<Member> ex = Example.of(member);
+        if (repository.exists(ex)) {
+            List<Member> members = repository.findAll(ex);
+            Member dbMember = members.get(0);
+            if (BCrypt.checkpw(passwd, dbMember.getPasswd())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
