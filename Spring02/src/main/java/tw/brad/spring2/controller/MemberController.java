@@ -33,9 +33,8 @@ public class MemberController {
 
 	@PostMapping("/register")
 	public ResponseEntity<Map<String, Boolean>> register(@RequestBody Member member) {
-		System.out.println(member.getEmail());
-		System.out.println(member.getPasswd());
-		System.out.println(member.getName());
+
+		boolean isSuccess = service.register(member);
 
 		Map<String, Boolean> map = Map.of("success", true);
 		return ResponseEntity.ok(map);

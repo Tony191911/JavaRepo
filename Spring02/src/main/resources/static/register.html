@@ -21,6 +21,8 @@
 			let name = document.getElementById("name");
 			let mesg = document.getElementById("mesg");
 			let regForm = document.getElementById("regForm");
+			let result = document.getElementById("result");
+
 			email.addEventListener('blur', async () => {
 				console.log("OK");
 				let url = "/api/members/exist?email=" + email.value;
@@ -48,7 +50,12 @@
 				});
 				let json = await res.json();
 				console.log(json);
-
+				result.textContent = json.success?"註冊成功":"註冊失敗";
+				if (json.success) {
+					location.href = "login.html";
+				}else {
+					result.textContent = "註冊失敗";
+				}
 			});
 
 		</script>
