@@ -20,5 +20,6 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
+    @Lob
     private byte[] icon;
 }

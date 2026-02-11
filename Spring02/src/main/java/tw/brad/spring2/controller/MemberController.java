@@ -5,11 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import tw.brad.spring2.config.ReadConfig;
+import tw.brad.spring2.dto.MemberForm;
 import tw.brad.spring2.entity.Member;
+import tw.brad.spring2.repository.MemberRepository;
 import tw.brad.spring2.service.MemberService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -108,5 +116,74 @@ public class MemberController {
 		map.put("success", "ok");
 
 		return ResponseEntity.ok(map);
+	}
+
+	@Autowired
+	private NamedParameterJdbcTemplate jdbc;
+
+	@PostMapping("/{id}")
+	public void test1(@PathVariable Integer id,
+					  @RequestParam MultipartFile upload) {
+		try {
+			byte[] bytes = upload.getBytes();
+			String sql = """
+					UPDATE member SET icon = :icon
+					WHERE id = :id
+					""";
+			Map<String,Object> params = Map.of(
+					"id", id,
+					"icon", bytes
+					);
+			int n = jdbc.update(sql, params);
+			System.out.println(n);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
+	@Autowired
+	private MemberRepository memberRepository;
+
+	@PostMapping("/v2/{id}")
+	public void test2(@PathVariable Long id,
+					  @RequestParam MultipartFile upload) {
+
+		try {
+			byte[] bytes = upload.getBytes();
+			Member member = memberRepository.findById(id).orElse(null);
+			if (member != null) {
+				member.setIcon(bytes);
+				memberRepository.save(member);
+			}
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+
+	@Autowired
+	private ReadConfig readConfig;
+
+	@PostMapping("/test3")
+	public void test3(@ModelAttribute MemberForm memberForm) {
+		System.out.println(memberForm.getAccount());
+		System.out.println(memberForm.getFiles().size());
+		System.out.println(readConfig.getUploadDir());
+
+		File here = new File(".");
+		System.out.println(here.getAbsolutePath());
+
+		List<MultipartFile> files = memberForm.getFiles();
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				String fname = here.getAbsolutePath() + "/" +
+						readConfig.getUploadDir() + "/" +
+						memberForm.getAccount() + "_" + file.getOriginalFilename();
+				try {
+					file.transferTo(new File(fname));
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
 	}
 }

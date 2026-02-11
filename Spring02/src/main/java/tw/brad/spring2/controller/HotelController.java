@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tw.brad.spring2.entity.Hotel;
+import tw.brad.spring2.repository.HotelRepository;
 import tw.brad.spring2.service.HotelService;
 
 import java.util.Map;
@@ -16,8 +17,14 @@ import java.util.Map;
 @RequestMapping("/api/hotels")
 public class HotelController {
 
+    private final HotelRepository hotelRepository;
+
     @Autowired
     private HotelService hotelService;
+
+    HotelController(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
+    }
 
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> queryHotelsByPage(
