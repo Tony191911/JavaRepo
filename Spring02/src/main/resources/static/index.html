@@ -3,6 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <style type="text/css">
+            table {border-collapse: collapse; width: 90%; margin: 20px}
+            th, td {border: 1px, solid, #ccc; padding: 8px; text-align:center}
+            th {background-color: #f2f2f2}
+        </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script type="text/javascript">
             // 撈 profile / hotel
@@ -32,14 +37,43 @@
                    }).always(function() {location.href = 'login.html';});
                });
 
-               function loadHotel() {
+               const rpp = 10;
+               let nowPage = 0;
+               let totalPage = 0;
+               function loadHotel(page) {
+                    $.ajax({
+                        url: `api/hotels?page=${page}&rpp=${rpp}`,
+                        method: 'GET',
+                        dataType: 'json'
+                    })
+                    .done(result => {
+                        console.log(result);
+                        let tbody = $('#hotelTable tbody').empty();
+                        result.data.forEach(hotel =>{
+                            tbody.append(`
+                                    <tr>
+                                        <td>${hotel.id}</td>
+                                        <td>${hotel.name}</td>
+                                        <td>${hotel.tel}</td>
+                                        <td>${hotel.addr}</td>
+                                    </tr>
+                                    `);
+                            });
+                        nowPage = result.page;
+                        totalPage = result.totalPage;
+                        $('#page').text(`${nowPage + 1} / ${totalPage}`);
 
+                    });
                }
 
-               loadHotel();
+               loadHotel(nowPage);
 
-               $('#prev').click(() => {});
-               $('#next').click(() => {});
+               $('#prev').click(() => {
+                   if (nowPage > 0) loadHotel(nowPage - 1, rpp);
+               });
+               $('#next').click(() => {
+                   if (nowPage + 1 < totalPage) loadHotel(nowPage + 1, rpp);
+               });
             });
         </script>
     </head>
@@ -52,7 +86,7 @@
         <div id="icon"></div>
         <div id="logout">Logout</div>
         <hr />
-        <button id="prev">Prev</button> | <span id="page">3</span> | <button id="next">Next</button>
+        <button id="prev">Prev</button> | <span id="page">3 / 9</span> | <button id="next">Next</button>
         <table id="hotelTable">
             <thead>
                 <tr>
