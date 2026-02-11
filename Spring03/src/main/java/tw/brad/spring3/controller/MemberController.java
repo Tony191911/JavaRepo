@@ -2,14 +2,12 @@ package tw.brad.spring3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import tw.brad.spring3.entity.Member;
 import tw.brad.spring3.entity.Profile;
+import tw.brad.spring3.repo.MemberRepo;
 import tw.brad.spring3.service.MemberService;
-import tw.brad.spring3.utils.BCrypt;
 
 import java.util.Map;
 
@@ -40,15 +38,49 @@ public class MemberController {
         member.setPasswd((String) data.get("passwd"));
 
         Profile profile = null;
-        Map<String,Object> pDate = (Map<String,Object>)data.get("profile");
-        if (pDate != null) {
+        Map<String,Object> pData = (Map<String,Object>)data.get("profile");
+        if (pData != null) {
             profile = new Profile();
-            profile.setCname((String)pDate.get("cname"));
-            profile.setAge((Integer)pDate.get("age"));
+            profile.setCname((String) pData.get("cname"));
+            profile.setAge((Integer) pData.get("age"));
         }
 
         Member saveMember = service.save(member, profile);
         return ResponseEntity.ok(saveMember);
+    }
+
+    @Autowired
+    private MemberRepo memberRepo;
+
+    @Transactional
+    @PutMapping("")
+    public ResponseEntity<Member> update(@RequestBody Map<String,Object> body) {
+        int temp = (Integer)body.get("id");
+        long id = temp;
+        Member member = memberRepo.findById(id).orElse(null);
+        if (member != null) {
+            member.setEmail((String)body.get("email"));
+            Member save = memberRepo.save(member);
+            return ResponseEntity.ok(save);
+        }
+        return ResponseEntity.ok(null);
+    }
+
+
+    @PutMapping("/{memberId}/profile")
+    public ResponseEntity<Profile> saveProfile(@PathVariable Long memberId,
+                                               @RequestBody Map<String,Object> pdata) {
+        Profile profile = new Profile();
+        profile.setCname((String)pdata.get("cname"));
+        profile.setAge((Integer)pdata.get("age"));
+
+        Profile saveProfile = service.setProfile2Member(profile, memberId);
+        return ResponseEntity.ok(saveProfile);
+    }
+
+    @GetMapping("/{memberId}")
+    public  ResponseEntity<Member> queryMember(@PathVariable Long memberId) {
+        return ResponseEntity.ok(service.findMemberById(memberId));
     }
 
 }

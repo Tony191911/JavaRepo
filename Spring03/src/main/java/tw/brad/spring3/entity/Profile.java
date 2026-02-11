@@ -1,5 +1,6 @@
 package tw.brad.spring3.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,8 @@ public class Profile {
 	//--------------------------------
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id")
+	// 解決json無限遞迴
+	@JsonBackReference
 	private Member member;
 	
 }
