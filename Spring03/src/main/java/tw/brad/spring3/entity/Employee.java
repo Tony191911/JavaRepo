@@ -23,6 +23,6 @@ public class Employee {
     private String title;
 
     //-------------------------
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "employee")
     private List<Order> orders;
 }

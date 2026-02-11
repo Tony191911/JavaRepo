@@ -10,7 +10,7 @@
         <module name="hi2" />
         <module name="hi1" />
       </profile>
-      <profile name="Annotation profile for Spring02" enabled="true">
+      <profile name="Annotation profile for Spring03" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
