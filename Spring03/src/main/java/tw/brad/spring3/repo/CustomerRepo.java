@@ -13,5 +13,6 @@ public interface CustomerRepo extends JpaRepository<Customer, String> {
             FROM Customer c
             WHERE c.customerid = :id
             """)
+    // 確保包起來的物件的空值(null)能被處理
     Optional<Customer> findByCustomerID(@Param("id") String id);
 }
