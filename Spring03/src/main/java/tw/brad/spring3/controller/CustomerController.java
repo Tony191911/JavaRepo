@@ -1,5 +1,7 @@
 package tw.brad.spring3.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,11 @@ public class CustomerController {
     @Autowired
     private CustomerRepo customerRepo;
 
+    @Operation(summary = "查詢客戶訂單", description = "可以用了....")
     @GetMapping("/v1/{id}")
-    public ResponseEntity<Customer> test1(@PathVariable String id) {
+    public ResponseEntity<Customer> test1(
+            @Parameter(description = "輸入客戶編號")
+            @PathVariable String id) {
         return ResponseEntity.ok(customerRepo.findById(id).orElse(null));
     }
 
@@ -55,8 +60,8 @@ public class CustomerController {
         ArrayList<OrderDto> orderList = new ArrayList<>();
         for (Order order : orders) {
             List<OrderDetail> details = order.getOrderDetails();
-
             ArrayList<OrderDetailDto> detailDtos = new ArrayList<>();
+
             for (OrderDetail detail : details) {
                 detailDtos.add(new OrderDetailDto(
                         detail.getUnitPrice(),
