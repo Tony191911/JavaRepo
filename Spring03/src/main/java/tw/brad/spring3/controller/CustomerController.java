@@ -16,6 +16,7 @@ import tw.brad.spring3.repo.CustomerRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -72,4 +73,47 @@ public class CustomerController {
 
         return ResponseEntity.ok(cDto);
     }
+
+    private CustomerDto toCustomerDto(Customer c) {
+        return new CustomerDto(
+                c.getCustomerid(),
+                c.getCompanyName(),
+                c.getOrders().stream().map(this::toOrderDto).toList());
+    }
+    private OrderDto toOrderDto(Order o) {
+        return new OrderDto(
+                o.getOrderid(),
+                o.getOrderdate(),
+                o.getOrderDetails().stream().map(this::toOrderDetailDto).toList());
+    }
+    private OrderDetailDto toOrderDetailDto(OrderDetail od) {
+        return new OrderDetailDto(
+                od.getUnitPrice(),
+                od.getQuantity(),
+                od.getProduct().getProductName());
+    }
+
+
+    @GetMapping("/v4/{id}")
+    public ResponseEntity<CustomerDto> test4(@PathVariable String id) {
+        Optional<Customer> opt = customerRepo.findById(id);
+        if (opt.isPresent()) {
+            Customer c = opt.get();
+            CustomerDto cDto = toCustomerDto(c);
+            return ResponseEntity.ok(cDto);
+        }else {
+            return ResponseEntity.notFound().build();   // 404
+        }
+    }
+
+    @GetMapping("/v5/{id}")
+    public ResponseEntity<CustomerDto> test5(@PathVariable String id) {
+        return customerRepo.findById(id)
+                .map(this::toCustomerDto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+                // orElseGet(): isEmpty => delay
+                // orElse(): => right now
+    }
+
 }

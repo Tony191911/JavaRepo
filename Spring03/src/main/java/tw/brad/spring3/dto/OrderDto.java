@@ -5,11 +5,15 @@ import lombok.Getter;
 
 import java.util.Date;
 import java.util.List;
-
+/*
 @Getter
 @AllArgsConstructor
 public class OrderDto {
     private Integer orderId;
     private Date orderDate;
     private List<OrderDetailDto> details;
+}
+*/
+
+public record OrderDto(Integer orderId, Date orderDate, List<OrderDetailDto> details) {
 }
