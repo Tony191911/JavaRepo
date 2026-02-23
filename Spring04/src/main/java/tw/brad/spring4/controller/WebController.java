@@ -5,10 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import tw.brad.spring4.Spring04Application;
+import jakarta.validation.Valid;
 import tw.brad.spring4.test.User;
+import tw.brad.spring4.test.UserForm;
 
 /*
  * request => Controller -> Model 網頁所需要的資料
@@ -22,6 +29,12 @@ import tw.brad.spring4.test.User;
 @Controller
 @RequestMapping("/")
 public class WebController {
+
+    private final Spring04Application spring04Application;
+
+    WebController(Spring04Application spring04Application) {
+        this.spring04Application = spring04Application;
+    }
 	
 	/*
 	 * ThymeleafViewResolver: prefix + viewName + suffix
@@ -57,7 +70,47 @@ public class WebController {
 				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		model.addAttribute("now", now);
 		
+		
 		return "page1";
+	}
+	
+	@RequestMapping("/page2/{status}")
+	public String page2(Model model, @PathVariable String status) {
+		model.addAttribute("status", status);
+		return "page2";
+	}
+	
+	@GetMapping("/page3")
+	public String page3(Model model) {
+		UserForm userForm = new UserForm();
+		userForm.setEmail("輸入Email");
+		model.addAttribute("userForm", userForm);
+		
+		return "page3";
+	}
+	
+	
+	@PostMapping("/page3")
+	public String page4(
+			Model model, 
+			@ModelAttribute @Valid UserForm userForm, 
+			BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "page3";
+		}
+		
+		System.out.println(userForm.getEmail());
+		System.out.println(userForm.getPasswd());
+		System.out.println(userForm.getName());
+		
+		return "page4";
+	}
+	
+	@RequestMapping("/page5")
+	public String page5() {
+		
+		return "page5";
 	}
 	
 }
