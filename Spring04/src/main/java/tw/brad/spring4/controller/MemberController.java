@@ -92,7 +92,8 @@ public class MemberController {
 		
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Hotel> pageHotel = hotelRepo.findAll(pageable);
-		model.addAttribute("page", pageHotel);
+		model.addAttribute("hotels", pageHotel);
+		model.addAttribute("page", page);
 		
 		return "home";
 	}
