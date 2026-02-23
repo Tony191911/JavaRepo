@@ -1,6 +1,11 @@
 package tw.brad.spring4.controller;
 
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import tw.brad.spring4.dto.MemberForm;
+import tw.brad.spring4.entity.Hotel;
 import tw.brad.spring4.entity.Member;
+import tw.brad.spring4.repo.HotelRepo;
 import tw.brad.spring4.service.MemberService;
 
 
@@ -68,4 +75,32 @@ public class MemberController {
 		}
 		return "login";
 	}
+	
+	@Autowired
+	private HotelRepo hotelRepo;
+	
+	@RequestMapping("/home")
+	public String home(HttpSession session, Model model,
+					   @RequestParam(defaultValue = "0") int page,
+					   @RequestParam(defaultValue = "10") int size) {
+		Object obj = session.getAttribute("member");
+		if (obj == null) return "redirect:/member/login";
+		Member member = (Member)obj;
+
+		model.addAttribute("member", member);
+		model.addAttribute("icon", "data:image/*; base64, " + Base64.getEncoder().encodeToString(member.getIcon()));
+		
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Hotel> pageHotel = hotelRepo.findAll(pageable);
+		model.addAttribute("page", pageHotel);
+		
+		return "home";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/member/login";
+	}
+	
 }
