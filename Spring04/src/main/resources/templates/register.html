@@ -28,6 +28,6 @@
 			</div>
 			<button type="submit">Register</button>
 		</form>
-		<div>Error Message</div>
+		<div th:if="${error}" th:text="${error}" style="color: red;">Error Message</div>
 	</body>
 </html>
