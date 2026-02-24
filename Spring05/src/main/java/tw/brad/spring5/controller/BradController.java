@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.brad.spring5.annotation.BradAOP;
 import tw.brad.spring5.dto.Register;
 
 @RestController
@@ -17,6 +18,7 @@ public class BradController {
 		System.out.printf("%s : %d\n", name, age);
 	}
 	
+	@BradAOP
 	@RequestMapping("/test2")
 	public void test22() {
 		System.out.println("test22");

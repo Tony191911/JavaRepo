@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import tw.brad.spring5.dto.Register;
 
-@Aspect
+//@Aspect
 @Component
 public class MyAspect {
 	
@@ -68,6 +68,7 @@ public class MyAspect {
 				reg.setAccount(account);
 			}
 		}
+		
 		/*
 		System.out.printf("%s:%s\n", name, type);
 		if (args != null) {
