@@ -33,6 +33,6 @@ public class AuthController {
 		}
 		String token = JwtToken.createToken(member.getEmail());
 		
-		return ResponseEntity.ok(new LoginResponse(token, login.getEmail()));
+		return ResponseEntity.ok(new LoginResponse(token, login.getEmail(), member.getName()));
 	}
 }
