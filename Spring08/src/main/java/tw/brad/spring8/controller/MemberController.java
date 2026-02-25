@@ -44,7 +44,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/page403")
-	public String page403(Model model) {
+	public String page403() {
 		return "page403";
 	}
 }
